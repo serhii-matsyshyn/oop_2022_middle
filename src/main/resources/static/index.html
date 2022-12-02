@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DataFinder</title>
+</head>
+<body>
+<h1>DataFinder</h1>
+<form>
+    <form id="contact-form" action="" method="POST">
+        <input type="text" id="domain" name="domain">
+        <a href="#" id="submit">Submit</a>
+    </form>
+    <pre id="result"></pre>
+</form>
+</body>
+
+<script>
+    document.getElementById("submit").onclick = function () {
+        let data = {"name": document.getElementById("domain").value};
+        fetch("/get_data_about_domain", {
+            method: "POST",
+            body: JSON.stringify(data),
+            }
+        ).then(res => res.json()).then(x => document.getElementById("result").innerText = JSON.stringify(x, null, 2));
+    }
+</script>
+</html>

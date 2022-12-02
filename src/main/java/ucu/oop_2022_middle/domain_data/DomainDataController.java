@@ -1,4 +1,4 @@
-package domain_data;
+package ucu.oop_2022_middle.domain_data;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

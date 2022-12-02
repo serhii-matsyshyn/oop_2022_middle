@@ -1,5 +1,6 @@
-package domain_data;
+package ucu.oop_2022_middle.domain_data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -13,7 +14,6 @@ import javax.persistence.*;
 import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.time.Period;
-
 @Entity
 @Table
 @Getter
@@ -23,7 +23,8 @@ import java.time.Period;
 public class DomainData {
     @Id
     @GeneratedValue
-    private int id;
+    @ToString.Exclude @JsonIgnore
+    private int Id;
 
     @Column(unique = true)
     String name;
@@ -33,6 +34,10 @@ public class DomainData {
     String icon;
     String employees;
     String address;
+
+    @ToString.Exclude @JsonIgnore
+    @Transient
+    boolean dataReady;
 
     public DomainData(){
         this.name = null;

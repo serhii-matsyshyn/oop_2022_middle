@@ -1,4 +1,4 @@
-package domain_data;
+package ucu.oop_2022_middle.domain_data;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,9 +30,10 @@ public class DomainDataService {
         DomainData domainData = new DomainData();
 
 
-        while (!domainData.getDataReady()) {
-            // TODO: get data from API, fill domainData object
-        }
+//        while (!domainData.getDataReady()) {
+//            // TODO: get data from API, fill domainData object
+//        }
+        System.out.println("Domain data is ready");
 
         domainDataRepository.save(domainData);
 
