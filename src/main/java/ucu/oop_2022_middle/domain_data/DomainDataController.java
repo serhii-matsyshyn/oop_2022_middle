@@ -3,8 +3,11 @@ package ucu.oop_2022_middle.domain_data;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 
 @RestController
@@ -24,8 +27,8 @@ public class DomainDataController {
         return ow.writeValueAsString(domainDataService.getDomainDataList());
     }
 
-    @PostMapping("/get_data_about_domain")
-    public String getDomainData(@RequestBody String name) throws JsonProcessingException {
-        return domainDataService.getDomainData(name).toJson();
+    @PostMapping(value="/get_data_about_domain", consumes="application/json", produces="application/json")
+    public String getDomainData(@RequestBody Map<String,String> data) throws JsonProcessingException {
+        return domainDataService.getDomainData(data.get("name")).toJson();
     }
 }

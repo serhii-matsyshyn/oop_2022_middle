@@ -20,6 +20,7 @@
         let data = {"name": document.getElementById("domain").value};
         fetch("/get_data_about_domain", {
             method: "POST",
+            headers:{"Content-Type": "application/json"},
             body: JSON.stringify(data),
             }
         ).then(res => res.json()).then(x => document.getElementById("result").innerText = JSON.stringify(x, null, 2));
