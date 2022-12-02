@@ -6,8 +6,11 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
+@RequestMapping(path = "api/v1")
 public class DomainDataController {
     private final DomainDataService domainDataService;
 
@@ -16,16 +19,26 @@ public class DomainDataController {
         this.domainDataService = domainDataService;
     }
 
-    @GetMapping("/all_domain_data")
-    public String getDomainDataList() throws JsonProcessingException {
+    @RequestMapping(value = "/domain_data", method = RequestMethod.GET)//("/all_domain_data")
+    @ResponseBody
+    public DomainData getDomainData(
+            @RequestParam("domain") String domain
+    ) throws JsonProcessingException {
         // convert to json
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        return ow.writeValueAsString(domainDataService.getDomainDataList());
+//        ObjectMapper mapper = new ObjectMapper();
+//        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+
+        System.out.println(domain);
+        return /*"data for " + name;*/domainDataService.getDomainData(domain);//ow.writeValueAsString(domainDataService.getDomainDataList());
     }
 
-    @PostMapping("/get_data_about_domain")
-    public String getDomainData(@RequestBody String name) throws JsonProcessingException {
-        return domainDataService.getDomainData(name).toJson();
+//    @GetMapping
+//    public List<DomainData>
+//    getDomainDatas () {
+//        return domainDataService.getDomainDatas();
+//    }
+    @PostMapping//("/get_data_about_domain")
+    public void addDomainData(@RequestBody DomainData name) throws JsonProcessingException {
+        domainDataService.addDomainData(name);//.toJson();
     }
 }
