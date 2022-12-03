@@ -1,7 +1,10 @@
 package ucu.oop_2022_middle.domain_data;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ucu.oop_2022_middle.readers.BrandFetch;
+import ucu.oop_2022_middle.readers.PDLReader;
 
 import java.util.List;
 
@@ -24,16 +27,21 @@ public class DomainDataService {
 
     // get one domain data by name if exists
     public DomainData getDomainData(String name) {
-        if (domainDataRepository.findByName(name) != null) {
-            return domainDataRepository.findByName(name);
+        if (domainDataRepository.findByUrl(name) != null) {
+            return domainDataRepository.findByUrl(name);
         }
-        DomainData domainData = new DomainData();
 
+        DomainData domainData = new DomainData();
+        domainData.setUrl(name);
+
+        domainData = PDLReader.getDomainData(name, domainData);
+        domainData = BrandFetch.getDomainData(name, domainData);
 
 //        while (!domainData.getDataReady()) {
 //            // TODO: get data from API, fill domainData object
 //        }
-        System.out.println("Domain data is ready");
+
+        System.out.println(domainData);
 
         domainDataRepository.save(domainData);
 

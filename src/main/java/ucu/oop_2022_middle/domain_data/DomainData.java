@@ -27,6 +27,7 @@ public class DomainData {
     private int Id;
 
     @Column(unique = true)
+    String url;
     String name;
     String twitter;
     String facebook;
@@ -40,6 +41,7 @@ public class DomainData {
     boolean dataReady;
 
     public DomainData(){
+        this.url = null;
         this.name = null;
         this.twitter = null;
         this.facebook = null;

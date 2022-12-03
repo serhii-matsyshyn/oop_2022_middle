@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DomainDataRepository extends JpaRepository<DomainData, Long> {
-    @Query("SELECT t FROM DomainData t WHERE t.name = ?1")
-    DomainData findByName(@Param("name") String name);
+    @Query("SELECT t FROM DomainData t WHERE t.url = ?1")
+    DomainData findByUrl(@Param("url") String url);
 }

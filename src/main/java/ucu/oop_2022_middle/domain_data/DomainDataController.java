@@ -29,6 +29,8 @@ public class DomainDataController {
 
     @PostMapping(value="/get_data_about_domain", consumes="application/json", produces="application/json")
     public String getDomainData(@RequestBody Map<String,String> data) throws JsonProcessingException {
-        return domainDataService.getDomainData(data.get("name")).toJson();
+        String name = data.get("name");
+        System.out.println("name: " + name);
+        return domainDataService.getDomainData(name).toJson();
     }
 }
