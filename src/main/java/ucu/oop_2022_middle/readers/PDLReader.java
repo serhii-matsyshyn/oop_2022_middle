@@ -40,10 +40,6 @@ public class PDLReader {
     public static void clearJSON () {
         jsonObject = null;
     }
-
-    public static  void clear() {
-
-    }
     public static void main(String[] args) throws IOException {
 
         String query = URLEncoder.encode("SELECT NAME FROM COMPANY WHERE WEBSITE='ucu.edu.ua'", StandardCharsets.UTF_8);
