@@ -9,6 +9,8 @@ import ucu.oop_2022_middle.domain_data.DomainData;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SerperReader {
     private static final String API_KEY = "44f0cf46599f5cc6fa44e472cd1c487fcf6ea6c8";
@@ -38,6 +40,12 @@ public class SerperReader {
         jsonObject = new JSONArray(response.body().string());
 
     }
+    // Pattern for recognizing a URL, based off RFC 3986
+    private static final Pattern urlPattern = Pattern.compile(
+            "(?:^|[\\W])((ht|f)tp(s?):\\/\\/|www\\.)"
+                    + "(([\\w\\-]+\\.){1,}?([\\w\\-.~]+\\/?)*"
+                    + "[\\p{Alnum}.,%_=?&#\\-+()\\[\\]\\*$~@!:/{};']*)",
+            Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
 
     public static DomainData getDomainData2(String domain, DomainData domainData) {
 
@@ -57,6 +65,24 @@ public class SerperReader {
 
         if (!data.isNull("Адреса")) {
             domainData.setAddress(data.getString("Адреса"));
+        }
+
+        if (domainData.getTwitter() == null){
+            // use regex to get twitter
+
+            String json_str = jsonObject.toString();
+            Matcher matcher = urlPattern.matcher(json_str);
+            while (matcher.find()) {
+                int matchStart = matcher.start(1);
+                int matchEnd = matcher.end();
+                // now you have the offsets of a URL match
+                String url = json_str.substring(matchStart, matchEnd);
+                if (url.contains("twitter.com")){
+                    System.out.println(url);
+                    domainData.setTwitter(url);
+                    break;
+                }
+            }
         }
 
         return domainData;
