@@ -39,10 +39,6 @@ public class DomainDataService {
         domainData = BrandFetch.getDomainData(name, domainData);
         domainData = SerperReader.getDomainData(domainData.getName(), domainData);
 
-//        while (!domainData.getDataReady()) {
-//            // TODO: get data from API, fill domainData object
-//        }
-
         System.out.println(domainData);
 
         domainDataRepository.save(domainData);
