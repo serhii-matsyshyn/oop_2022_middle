@@ -46,22 +46,6 @@ public class BrandFetch {
 
         System.out.println(jsonObject);
 
-
-//        if (!jsonObject.isNull("name")) {
-//            domainData.setName(jsonObject.getString("name"));
-//        }
-//
-//        if (!jsonObject.isNull("twitter_url")) {
-//            domainData.setTwitter(jsonObject.getString("twitter_url"));
-//        }
-//
-//        if (!jsonObject.isNull("facebook_url")) {
-//            domainData.setFacebook(jsonObject.getString("facebook_url"));
-//        }
-//
-//        if (!jsonObject.isNull("size")) {
-//            domainData.setEmployees(jsonObject.getString("size"));
-//        }
         JSONObject logos = jsonObject.getJSONArray("logos"
         ).getJSONObject(0).getJSONArray("formats").getJSONObject(0);
         if (logos != null) {
