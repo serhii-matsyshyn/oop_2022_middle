@@ -7,6 +7,8 @@ import ucu.oop_2022_middle.readers.BrandFetch;
 import ucu.oop_2022_middle.readers.PDLReader;
 import ucu.oop_2022_middle.readers.SerperReader;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 @Service
@@ -28,6 +30,14 @@ public class DomainDataService {
 
     // get one domain data by name if exists
     public DomainData getDomainData(String name) {
+        try {
+            URI uri = new URI(name);
+            name = uri.getHost();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+            return new DomainData();
+        }
+
         if (domainDataRepository.findByUrl(name) != null) {
             return domainDataRepository.findByUrl(name);
         }
