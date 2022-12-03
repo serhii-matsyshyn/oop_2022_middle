@@ -37,8 +37,8 @@ public class DomainDataController {
 //    getDomainDatas () {
 //        return domainDataService.getDomainDatas();
 //    }
-    @PostMapping//("/get_data_about_domain")
-    public void addDomainData(@RequestBody DomainData name) throws JsonProcessingException {
-        domainDataService.addDomainData(name);//.toJson();
+@RequestMapping(value = "/domain_data", method = RequestMethod.POST)
+    public void addDomainData(@RequestParam("domain")  String domain) throws JsonProcessingException {
+        domainDataService.addDomainData(domain);//.toJson();
     }
 }
