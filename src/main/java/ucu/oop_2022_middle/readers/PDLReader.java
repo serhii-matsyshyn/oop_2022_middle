@@ -35,7 +35,7 @@ public class PDLReader {
 
     }
 
-    public static DomainData getDomainData(String domain, DomainData domainData) {
+    public static DomainData getDomainData2(String domain, DomainData domainData) {
 
         PDLReader pdlReader = new PDLReader();
         try {
@@ -71,6 +71,16 @@ public class PDLReader {
         }
 
         return domainData;
+    }
+
+    public static DomainData getDomainData(String domain, DomainData domainData) {
+        try {
+            return getDomainData2(domain, domainData);
+        } catch (Exception e) {
+            System.out.println("Error while getting domain data");
+            System.out.println(e);
+            return domainData;
+        }
     }
 
 }
