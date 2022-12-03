@@ -64,6 +64,11 @@ public class PDLReader {
         if (!jsonObject.isNull("size")) {
             domainData.setEmployees(jsonObject.getString("size"));
         }
+        JSONObject location = jsonObject.getJSONObject("location");
+
+        if (!location.isNull("country")) {
+            domainData.setAddress(location.getString("country"));
+        }
 
         return domainData;
     }

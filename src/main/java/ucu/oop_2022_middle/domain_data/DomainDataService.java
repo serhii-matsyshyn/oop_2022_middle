@@ -3,6 +3,7 @@ package ucu.oop_2022_middle.domain_data;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ucu.oop_2022_middle.readers.BrandFetch;
 import ucu.oop_2022_middle.readers.PDLReader;
 
 import java.util.List;
@@ -34,6 +35,7 @@ public class DomainDataService {
         domainData.setUrl(name);
 
         domainData = PDLReader.getDomainData(name, domainData);
+        domainData = BrandFetch.getDomainData(name, domainData);
 
 //        while (!domainData.getDataReady()) {
 //            // TODO: get data from API, fill domainData object
