@@ -3,6 +3,7 @@ package ucu.oop_2022_middle.readers;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import org.json.JSONObject;
+import ucu.oop_2022_middle.domain_data.DomainData;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -15,13 +16,14 @@ public class PDLReader {
     private static final String API_KEY = "d558cf5335bb4c82aab3a0baed89cfb4a16aca967c04a22673641077241b9578";
 
 
+    private JSONObject jsonObject;
 
-    private static JSONObject jsonObject;
-    public static JSONObject getJSON() {
+    public JSONObject getJSON() {
         return jsonObject;
     }
+
     @SneakyThrows
-    public static void setJSON(String domain) {
+    public void setJSON(String domain) {
         String query = domain;
         URL url = new URL("https://api.peopledatalabs.com/v5/company/clean?website=" + query);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -32,31 +34,36 @@ public class PDLReader {
         jsonObject = new JSONObject(text);
 
     }
-    public static void clearJSON () {
-        jsonObject = null;
-    }
 
-    public static  void clear() {
+    public static DomainData getDomainData(String domain, DomainData domainData) {
 
-    }
-    public static void main(String[] args) throws IOException {
+        PDLReader pdlReader = new PDLReader();
+        try {
+            pdlReader.setJSON(domain);
+        } catch (Exception e){
+            System.out.println("Error while getting domain data");
+            return domainData;
+        }
+        JSONObject jsonObject = pdlReader.getJSON();
 
-        //String query = URLEncoder.encode("SELECT NAME FROM COMPANY WHERE WEBSITE='ucu.edu.ua'", StandardCharsets.UTF_8);
-        String query = "ucu.edu.ua";
-        System.out.println(query);
-        //URL url = new URL("https://api.peopledatalabs.com/v5/company/search?sql=" + query);
-        URL url = new URL("https://api.peopledatalabs.com/v5/company/clean?website=" + query);
 
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
-        connection.setRequestProperty("X-Api-Key", API_KEY);
-        connection.connect();
-        String text = new Scanner(connection.getInputStream()).useDelimiter("\\Z").next();
-        JSONObject jsonObject = new JSONObject(text);
-        System.out.println(jsonObject);
-        System.out.println(jsonObject.get("name"));
+        if (!jsonObject.isNull("name")) {
+            domainData.setName(jsonObject.getString("name"));
+        }
 
-        //System.out.println(jsonObject.getJSONArray("data").getJSONObject(0).getInt("employee_count"));
+        if (!jsonObject.isNull("twitter_url")) {
+            domainData.setTwitter(jsonObject.getString("twitter_url"));
+        }
+
+        if (!jsonObject.isNull("facebook_url")) {
+            domainData.setFacebook(jsonObject.getString("facebook_url"));
+        }
+
+        if (!jsonObject.isNull("size")) {
+            domainData.setEmployees(jsonObject.getString("size"));
+        }
+
+        return domainData;
     }
 
 }

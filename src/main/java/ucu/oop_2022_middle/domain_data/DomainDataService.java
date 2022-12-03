@@ -29,27 +29,10 @@ public class DomainDataService {
         if (domainDataRepository.findByName(name) != null) {
             return domainDataRepository.findByName(name);
         }
-        PDLReader pdlReader = new PDLReader();
-        pdlReader.setJSON(name);
-
-        JSONObject jsonObject = pdlReader.getJSON();
-
-        System.out.println(jsonObject.toString());
 
         DomainData domainData = new DomainData();
-        domainData.setName(name);
-//        domainData.setTwitter(jsonObject.getString("twitter"));
-//        domainData.setFacebook(jsonObject.getString("facebook"));
-//
-//
-//        String twitter;
-//        String facebook;
-//        String logo;
-//        String icon;
-//        String employees;
-//        String address;
 
-
+        domainData = PDLReader.getDomainData(name, domainData);
 
 //        while (!domainData.getDataReady()) {
 //            // TODO: get data from API, fill domainData object
