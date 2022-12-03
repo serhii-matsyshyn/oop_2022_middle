@@ -1,7 +1,9 @@
 package ucu.oop_2022_middle.domain_data;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ucu.oop_2022_middle.readers.PDLReader;
 
 import java.util.List;
 
@@ -27,7 +29,26 @@ public class DomainDataService {
         if (domainDataRepository.findByName(name) != null) {
             return domainDataRepository.findByName(name);
         }
+        PDLReader pdlReader = new PDLReader();
+        pdlReader.setJSON(name);
+
+        JSONObject jsonObject = pdlReader.getJSON();
+
+        System.out.println(jsonObject.toString());
+
         DomainData domainData = new DomainData();
+        domainData.setName(name);
+//        domainData.setTwitter(jsonObject.getString("twitter"));
+//        domainData.setFacebook(jsonObject.getString("facebook"));
+//
+//
+//        String twitter;
+//        String facebook;
+//        String logo;
+//        String icon;
+//        String employees;
+//        String address;
+
 
 
 //        while (!domainData.getDataReady()) {
