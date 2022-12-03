@@ -46,6 +46,8 @@ public class PDLReader {
         }
         JSONObject jsonObject = pdlReader.getJSON();
 
+        System.out.println(jsonObject);
+
 
         if (!jsonObject.isNull("name")) {
             domainData.setName(jsonObject.getString("name"));
