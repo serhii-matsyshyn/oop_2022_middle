@@ -1,5 +1,8 @@
 # oop_2022_middle
 
+## Hosted on Heroku
+https://domain-data.herokuapp.com/
+
 ## How to run:
 Setup DB with Docker
 ```bash
