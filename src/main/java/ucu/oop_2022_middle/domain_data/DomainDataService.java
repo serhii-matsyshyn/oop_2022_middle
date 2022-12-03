@@ -38,13 +38,10 @@ public class DomainDataService {
 //        while (!domainData.getDataReady()) {
 //            // TODO: get data from API, fill domainData object
 //        }
-        System.out.println("Domain data is ready");
 
         System.out.println(domainData);
 
         domainDataRepository.save(domainData);
-
-        System.out.println("Domain data is saved");
 
         return domainData;
     }
