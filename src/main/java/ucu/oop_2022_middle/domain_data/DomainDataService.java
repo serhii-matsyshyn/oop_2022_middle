@@ -30,13 +30,19 @@ public class DomainDataService {
 
     // get one domain data by name if exists
     public DomainData getDomainData(String name) {
+        String name_new;
         try {
             URI uri = new URI(name);
-            name = uri.getHost();
+            name_new = uri.getHost();
         } catch (URISyntaxException e) {
             e.printStackTrace();
             return new DomainData();
         }
+        if (name_new != null) {
+            name = name_new;
+        }
+
+        System.out.println("name: " + name);
 
         if (domainDataRepository.findByUrl(name) != null) {
             return domainDataRepository.findByUrl(name);
