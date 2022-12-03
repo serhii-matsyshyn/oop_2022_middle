@@ -26,11 +26,12 @@ public class DomainDataService {
 
     // get one domain data by name if exists
     public DomainData getDomainData(String name) {
-        if (domainDataRepository.findByName(name) != null) {
-            return domainDataRepository.findByName(name);
+        if (domainDataRepository.findByUrl(name) != null) {
+            return domainDataRepository.findByUrl(name);
         }
 
         DomainData domainData = new DomainData();
+        domainData.setUrl(name);
 
         domainData = PDLReader.getDomainData(name, domainData);
 
@@ -39,7 +40,11 @@ public class DomainDataService {
 //        }
         System.out.println("Domain data is ready");
 
+        System.out.println(domainData);
+
         domainDataRepository.save(domainData);
+
+        System.out.println("Domain data is saved");
 
         return domainData;
     }
