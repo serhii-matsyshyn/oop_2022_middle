@@ -2,6 +2,7 @@ package ucu.oop_2022_middle.readers;
 
 import lombok.Getter;
 import lombok.SneakyThrows;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -22,14 +23,18 @@ public class PDLReader {
     }
     @SneakyThrows
     public static void setJSON(String domain) {
-        String query = domain;
-        URL url = new URL("https://api.peopledatalabs.com/v5/company/clean?website=" + query);
+        //String query = domain;
+        String query = URLEncoder.encode("SELECT NAME FROM COMPANY WHERE WEBSITE='"+domain+"'", StandardCharsets.UTF_8);
+        URL url = new URL("https://api.peopledatalabs.com/v5/company/search?sql=" + query);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
         connection.setRequestProperty("X-Api-Key", API_KEY);
         connection.connect();
         String text = new Scanner(connection.getInputStream()).useDelimiter("\\Z").next();
-        jsonObject = new JSONObject(text);
+        jsonObject = (JSONObject) ((JSONArray) new JSONObject(text).get("data")).get(0);
+
+        //JSONArray ja =(JSONArray) jsonObject.get("data");
+        //System.out.println(ja.get(0));
 
     }
     public static void clearJSON () {
@@ -41,11 +46,11 @@ public class PDLReader {
     }
     public static void main(String[] args) throws IOException {
 
-        //String query = URLEncoder.encode("SELECT NAME FROM COMPANY WHERE WEBSITE='ucu.edu.ua'", StandardCharsets.UTF_8);
-        String query = "ucu.edu.ua";
+        String query = URLEncoder.encode("SELECT NAME FROM COMPANY WHERE WEBSITE='ucu.edu.ua'", StandardCharsets.UTF_8);
+        //String query = "ucu.edu.ua";
         System.out.println(query);
-        //URL url = new URL("https://api.peopledatalabs.com/v5/company/search?sql=" + query);
-        URL url = new URL("https://api.peopledatalabs.com/v5/company/clean?website=" + query);
+        URL url = new URL("https://api.peopledatalabs.com/v5/company/search?sql=" + query);
+        //URL url = new URL("https://api.peopledatalabs.com/v5/company/clean?website=" + query);
 
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
@@ -54,7 +59,9 @@ public class PDLReader {
         String text = new Scanner(connection.getInputStream()).useDelimiter("\\Z").next();
         JSONObject jsonObject = new JSONObject(text);
         System.out.println(jsonObject);
-        System.out.println(jsonObject.get("name"));
+        System.out.println(jsonObject.get("data"));
+        JSONArray ja =(JSONArray) jsonObject.get("data");
+        System.out.println(ja.get(0));
 
         //System.out.println(jsonObject.getJSONArray("data").getJSONObject(0).getInt("employee_count"));
     }

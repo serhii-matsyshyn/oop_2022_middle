@@ -2,7 +2,7 @@ package ucu.oop_2022_middle.handlers;
 
 import ucu.oop_2022_middle.readers.PDLReader;
 
-public class PDLHandler implements Handler {
+public abstract class PDLHandler implements Handler {
     Handler nextHandler;
 //    private static final JSONObject PDLJSON;
 //    public PDLHandler(String domain){

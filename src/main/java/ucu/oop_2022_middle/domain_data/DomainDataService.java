@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ucu.oop_2022_middle.handlers.Handler;
 import ucu.oop_2022_middle.handlers.NamePDLHandler;
+import ucu.oop_2022_middle.handlers.EmployeePDLHandler;
 import ucu.oop_2022_middle.readers.PDLReader;
 
 import java.util.List;
@@ -28,11 +29,16 @@ public class DomainDataService {
     public void addDomainData(String domain) {
         DomainData.DomainDataBuilder domainDataBuilder = DomainData.builder().domain(domain);
         domainDataBuilder.name(handleName(domain));
+        domainDataBuilder.employees(handleEmployees(domain));
         domainDataRepository.save(domainDataBuilder.build());
         PDLReader.clearJSON();
     }
     private String handleName (String domain) {
         Handler h = new NamePDLHandler();
+        return h.handle(domain);
+    }
+    private String handleEmployees (String domain) {
+        Handler h = new EmployeePDLHandler();
         return h.handle(domain);
     }
 
