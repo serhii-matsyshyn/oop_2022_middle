@@ -13,7 +13,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 public class PDLReader {
-    private static final String API_KEY = "d558cf5335bb4c82aab3a0baed89cfb4a16aca967c04a22673641077241b9578";
+    private static final String API_KEY = "09de31dafa666c0ae707f3982a187bb4ebbe5b41bf8fe14e92838cfaef57820e";
 
 
     private JSONObject jsonObject;
